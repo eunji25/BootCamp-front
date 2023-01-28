@@ -38,7 +38,7 @@ const LoginForm = observer(({}: Props) => {
         const newUserCdo = new UserCdo('', signUp.userName, signUp.email, ERole.USER, signUp.password);
         await userStateKeeper.newUser(newUserCdo).then((res) => {
             window.alert("SIGN UP SUCCESS");
-            navigate('/board');
+            navigate('/login');
         });
     }
 
@@ -75,9 +75,6 @@ const LoginForm = observer(({}: Props) => {
                 />
 
                 <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-                    <Link variant="subtitle2" underline="hover">
-                        Forgot password?
-                    </Link>
                 </Stack>
 
                 <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClickSignUp}>

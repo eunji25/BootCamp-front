@@ -7,6 +7,7 @@ import NoticePage from "./view/notice/NoticePage";
 import Header from "./layouts/Header";
 import NewBoardPage from "./view/board/NewBoardPage";
 import {Container} from "@mui/material";
+import SignUpPage from "./view/login/SignUpPage";
 
 const Router = ({userData, setUserData}: any) => {
     userData = localStorage.getItem('userData');
@@ -24,6 +25,7 @@ const Router = ({userData, setUserData}: any) => {
                 <div>
                     <Routes>
                         <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="/signup" element={<SignUpPage/>}/>
                     </Routes>
                 </div>
             }

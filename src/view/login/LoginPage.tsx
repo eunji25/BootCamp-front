@@ -5,6 +5,7 @@ import {observer} from "mobx-react";
 import {redirect, useNavigate} from "react-router-dom";
 import UserStore from "../../store/UserStore";
 import {ContentStyle} from "../../layouts/style/ContentStyle";
+import SignUpPage from "./SignUpPage";
 
 interface LoginInfo {
     email: string,
@@ -56,7 +57,7 @@ const LoginPage = observer(({}: Props) => {
 
                     <Typography variant="body2" sx={{mb: 5}}>
                         Don’t have an account? {''}
-                        <Link variant="subtitle2" href={'/signup'}>Get started</Link>
+                        <Link variant="subtitle2" onClick={() => navigate("/signup")}>Get started</Link>
                     </Typography>
 
                     <Stack direction="row" spacing={2}>

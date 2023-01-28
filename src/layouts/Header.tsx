@@ -28,7 +28,8 @@ const Header = observer(
          userData,
      }: Props) => {
 
-        userData = localStorage.getItem('userData');
+        // @ts-ignore
+        userData = JSON.parse(localStorage.getItem('userData'));
 
         const classes = useStyles();
         const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Header = observer(
                             <Typography variant="h6" className={classes.title}>
                                 {title}
                             </Typography>
+
                             {typeof userData != 'undefined' && userData != null ?
                                 <Button onClick={async () => {
                                     localStorage.clear();
