@@ -33,7 +33,6 @@ class UserApi {
                 // if (res.ACCESS_TOKEN) {
                 //     localStorage.setItem('login-token', res.ACCESS_TOKEN);
                 // }
-                console.log(res)
                 return res.data;
             })
             .catch(err => console.log(err))

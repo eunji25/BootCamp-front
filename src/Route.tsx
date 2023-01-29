@@ -1,13 +1,13 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
-import BoardPage from "./view/board/BoardPage";
-import LoginPage from "./view/login/LoginPage";
-import DetailBoardPage from "./view/board/DetailBoardPage";
-import NoticePage from "./view/notice/NoticePage";
+import BoardPage from "./page/board/BoardPage";
+import LoginPage from "./page/user/LoginPage";
+import DetailBoardPage from "./page/board/DetailBoardPage";
+import NoticePage from "./page/notice/NoticePage";
 import Header from "./layouts/Header";
-import NewBoardPage from "./view/board/NewBoardPage";
+import NewBoardPage from "./page/board/NewBoardPage";
 import {Container} from "@mui/material";
-import SignUpPage from "./view/login/SignUpPage";
+import SignUpPage from "./page/user/SignUpPage";
 
 const Router = ({userData, setUserData}: any) => {
     userData = localStorage.getItem('userData');

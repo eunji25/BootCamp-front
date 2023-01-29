@@ -1,7 +1,7 @@
 import React from "react";
 import {styled} from "@mui/material/styles";
 import {Container, Link, Stack, Typography} from "@mui/material";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "./view/SignUpForm";
 import {ContentStyle} from "../../layouts/style/ContentStyle";
 import {RootStyle} from "../../layouts/style/RootStyle";
 

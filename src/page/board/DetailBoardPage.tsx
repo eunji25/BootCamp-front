@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 import {useLocation} from "react-router-dom";
 import {Button, Container, Grid, Stack, Typography} from "@mui/material";
 import Iconify from "../../layouts/icon/Iconify";
-import BoardSearch from "./BoardSearch";
-import BoardSort from "./BoardSort";
-import BoardCard from "./BoardCard";
+import BoardSearch from "./view/BoardSearch";
+import BoardSort from "./view/BoardSort";
+import BoardCard from "./view/BoardCard";
 
 interface Props {
 }

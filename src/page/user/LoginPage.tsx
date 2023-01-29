@@ -1,11 +1,10 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEventHandler, useState} from "react";
 import {Container, Link, Stack, Typography} from "@mui/material";
-import LoginForm from "./LoginForm";
-import {observer} from "mobx-react";
+import LoginForm from "./view/LoginForm";
+import {observer, useLocalObservable} from "mobx-react";
 import {redirect, useNavigate} from "react-router-dom";
 import UserStore from "../../store/UserStore";
 import {ContentStyle} from "../../layouts/style/ContentStyle";
-import SignUpPage from "./SignUpPage";
 
 interface LoginInfo {
     email: string,
@@ -19,14 +18,15 @@ const LoginPage = observer(({}: Props) => {
 
     const navigate = useNavigate();
 
-    const userStateKeeper = UserStore.instance;
+    const userStore = useLocalObservable(() => UserStore.instance);
+    const {userData} = userStore;
 
     const [loginInfo, setLoginInfo] = useState<LoginInfo>({
         email: '', password: ''
     })
 
     const handleClickLogin = async () => {
-        const res = await userStateKeeper.login(loginInfo.email, loginInfo.password)
+        const res = await userStore.login(loginInfo.email, loginInfo.password)
         if (res) {
             localStorage.setItem('userData', JSON.stringify({
                 userName: res.userName,
@@ -39,12 +39,19 @@ const LoginPage = observer(({}: Props) => {
         }
     }
 
+
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setLoginInfo({
             ...loginInfo,
             [name]: value,
         })
+    }
+
+    const handleOnEnterPress = async (e: any) => {
+        if (e.key == 'Enter') {
+            await handleClickLogin();
+        }
     }
 
     return (
@@ -66,6 +73,7 @@ const LoginPage = observer(({}: Props) => {
                     <LoginForm
                         loginInfo={loginInfo}
                         onChangeInput={handleChangeInput}
+                        onEnterPress={handleOnEnterPress}
                         onClickLogin={handleClickLogin}
                     />
 

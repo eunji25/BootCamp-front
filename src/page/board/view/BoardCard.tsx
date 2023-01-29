@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Avatar, Box, Card, CardContent, Grid, Link, Typography} from "@mui/material";
-import SvgColor from "../../layouts/style/SvgColor";
+import SvgColor from "../../../layouts/style/SvgColor";
 import {alpha} from "@mui/material/styles";
 import {observer, useLocalObservable} from "mobx-react";
-import Board from "../../model/board/Board";
-import BoardStore from "../../store/BoardStore";
+import Board from "../../../model/board/Board";
+import BoardStore from "../../../store/BoardStore";
 import {useNavigate} from "react-router-dom";
-import {StyledAvatar, StyledCardMedia, StyledCover, StyledInfo, StyledTitle} from "../../layouts/style/CardStyle";
+import {StyledAvatar, StyledCardMedia, StyledCover, StyledInfo, StyledTitle} from "../../../layouts/style/CardStyle";
 
 interface Props {
     board: Board | null;

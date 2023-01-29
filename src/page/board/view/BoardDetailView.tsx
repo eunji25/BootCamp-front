@@ -6,7 +6,7 @@ import {observer} from "mobx-react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import {Button, InputLabel} from "@mui/material";
-import Board from "../../model/board/Board";
+import Board from "../../../model/board/Board";
 
 interface Props {
     open: boolean,

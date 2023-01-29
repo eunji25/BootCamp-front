@@ -1,9 +1,9 @@
 import React from "react";
 import {Autocomplete, InputAdornment, Popper, TextField} from "@mui/material";
 import {styled} from "@mui/material/styles";
-import Iconify from "../../layouts/icon/Iconify";
+import Iconify from "../../../layouts/icon/Iconify";
 import PropTypes from "prop-types";
-import Board from "../../model/board/Board";
+import Board from "../../../model/board/Board";
 import {observer} from "mobx-react";
 
 const StyledPopper = styled((props) => <Popper open={false} placement="bottom-start" {...props} />)({

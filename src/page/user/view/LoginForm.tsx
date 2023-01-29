@@ -1,20 +1,20 @@
-import {redirect, useNavigate} from "react-router-dom";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEventHandler, useState} from "react";
 import {Container, IconButton, InputAdornment, Link, Stack, TextField} from "@mui/material";
-import Iconify from "../../layouts/icon/Iconify";
+import Iconify from "../../../layouts/icon/Iconify";
 import {LoadingButton} from "@mui/lab";
-import UserStore from "../../store/UserStore";
 import {observer} from "mobx-react";
 
 interface Props {
     loginInfo: { email: string, password: string },
     onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
+    onEnterPress: (e: any) => void;
     onClickLogin: () => void;
 }
 
 const LoginForm = observer(({
     loginInfo,
     onChangeInput,
+    onEnterPress,
     onClickLogin,
     }: Props) => {
 
@@ -32,6 +32,7 @@ const LoginForm = observer(({
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
                     onChange={onChangeInput}
+                    onKeyPress={onEnterPress}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

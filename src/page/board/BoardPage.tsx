@@ -1,15 +1,13 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Container, Grid, Stack, Typography} from "@mui/material";
 import Iconify from "../../layouts/icon/Iconify";
-import BoardSearch from "./BoardSearch";
-import BoardSort from "./BoardSort";
-import BoardCard from "./BoardCard";
-import {observer, useLocalObservable} from "mobx-react";
+import BoardSearch from "./view/BoardSearch";
+import BoardSort from "./view/BoardSort";
+import BoardCard from "./view/BoardCard";
+import {useLocalObservable} from "mobx-react";
 import BoardStore from "../../store/BoardStore";
-import Board from "../../model/board/Board";
-import {GridEventListener} from "@mui/x-data-grid";
-import BoardCdo from "../../model/board/sdo/BoardCdo";
 import {useNavigate} from "react-router-dom";
+import UserStore from "../../store/UserStore";
 
 const SORT_OPTIONS = [
     {value: 'latest', label: 'Latest'},
@@ -29,21 +27,20 @@ interface InputValue {
     registerTime: string,
 }
 
-function BoardPage() {
+const BoardPage = () => {
     const userData = localStorage.getItem('userData');
-    const boardStateKeeper = useLocalObservable(() => BoardStore.instance);
-    const {boardList} = boardStateKeeper;
-
-    const [inputValue, setInputValue] = useState<InputValue>({
-        id: '', writerId: '', title: '', content: '', registerTime: new Date().toDateString()
-    })
+    const boardStore = useLocalObservable(() => BoardStore.instance);
+    const {boardList} = boardStore;
+    // const userStore = useLocalObservable(() => UserStore.instance);
+    // const {userData} = userStore;
 
     useEffect(() => {
-        findBoardList().then(r => {});
+        findBoardList().then(r => {
+        });
     },[]);
 
     const findBoardList = async () => {
-        await boardStateKeeper.findBoardList();
+        await boardStore.findBoardList();
     }
 
     // const [detailBoard, setDetailBoard] = useState<Board | null>(null);

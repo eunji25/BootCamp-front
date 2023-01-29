@@ -9,7 +9,7 @@ class UserStore {
 
     private readonly userApi: UserApi;
 
-    userList: User[] = [];
+    userData: User | undefined;
 
     static get instance() {
         if (!UserStore._instance) {
@@ -29,8 +29,10 @@ class UserStore {
         return await this.userApi.newUser(userCdo);
     }
 
-    async login(userid: string, password: string) {
-        return await this.userApi.login(userid, password);
+    async login(email: string, password: string): Promise<User> {
+        const userData: User = await this.userApi.login(email, password);
+        runInAction(() => this.userData = userData);
+        return userData;
     }
 
 }
