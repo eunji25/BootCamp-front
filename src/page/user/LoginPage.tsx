@@ -26,17 +26,18 @@ const LoginPage = observer(({}: Props) => {
     })
 
     const handleClickLogin = async () => {
-        const res = await userStore.login(loginInfo.email, loginInfo.password)
-        if (res) {
-            localStorage.setItem('userData', JSON.stringify({
-                userName: res.userName,
-                email: res.email,
-            }));
-            navigate("/board");
-        } else {
-            window.alert("LOGIN FAILED");
-            redirect("/login");
-        }
+        await userStore.login(loginInfo.email, loginInfo.password)
+            .then((res) => {
+                localStorage.setItem('userData', JSON.stringify({
+                    userName: res.userName,
+                    email: res.email
+                }))
+                navigate("/board");
+            })
+            .catch(() => {
+                window.alert("LOGIN FAILED");
+                redirect("/login");
+            });
     }
 
 

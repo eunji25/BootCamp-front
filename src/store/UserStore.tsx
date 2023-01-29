@@ -9,7 +9,7 @@ class UserStore {
 
     private readonly userApi: UserApi;
 
-    userData: User | undefined;
+    userData: User | null = null;
 
     static get instance() {
         if (!UserStore._instance) {

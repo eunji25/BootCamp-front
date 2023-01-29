@@ -43,6 +43,14 @@ class BoardApi {
             })
             .catch(err => console.log(err));
     }
+
+    async deleteBoard(id: string) {
+        await axios.post("/api/board/delete-board", {id: id})
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+    }
 }
 
 export default BoardApi;

@@ -17,10 +17,10 @@ interface Props {
 }
 
 interface InputValue {
-    id: string,
-    writerId: string,
+    userName: string,
     title: string,
     content: string,
+    image: string,
     registerTime: string,
 }
 
@@ -33,7 +33,7 @@ const NewBoardPage = observer(
         const boardStateKeeper = useLocalObservable(() => BoardStore.instance);
         const [editable, setEditable] = useState<boolean>(false);
         const [inputValue, setInputValue] = useState<InputValue>({
-            id: '', writerId: '', title: '', content: '', registerTime: new Date().toDateString()
+            userName: '', title: '', content: '', image: '', registerTime: new Date().toDateString()
         })
 
         const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ const NewBoardPage = observer(
             setEditable(false);
             const boardCdo = new BoardCdo('', inputValue.registerTime, '', '',
                 inputValue.title,
-                inputValue.content, userData.email, userData.userName
+                inputValue.content, userData.image, userData.email, userData.userName
             )
             await boardStateKeeper.newBoard(boardCdo)
                 .then(() => {
@@ -59,20 +59,30 @@ const NewBoardPage = observer(
                 });
         }
 
+        // TODO image upload
+        const handleImageUpload = () => {
+            const formData = new FormData();
+            formData.append('file', inputValue.image);
+        }
+
+        const handleChange = (e: any) => {
+        }
+
         return (
             <>
                 <div>
 
-                    {/*<input accept="image/*" id="raised-button-file" type="file"*/}
-                    {/*       file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>*/}
+                    <input id="raised-button-file" type="file"
+                    onChange={handleChange}/>
 
-                    {/*<label htmlFor="raised-button-file">*/}
+                    <label htmlFor="raised-button-file" />
 
-                    {/*<Button variant="contained" color="primary" component="span" name="file">*/}
+                    <Button variant="contained" color="primary" name="file"
+                            value={inputValue.image} onClick={handleImageUpload}>
 
                     {/*{this.state.fileName === '' ? "프로필 이미지 선택" : this.state.fileName}*/}
 
-                    {/*</Button>*/}
+                    </Button>
                     <div>
                         {/*<TextField hidden={true} name="id" value={inputValue.id} disabled={true}/><br/>*/}
 

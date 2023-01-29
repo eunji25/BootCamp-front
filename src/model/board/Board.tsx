@@ -10,17 +10,20 @@ class Board {
     boardNo: string;
     title: string;
     content: string;
+    image: string;
 
+    email: string;
     userName: string;
-    // auth: Auth | null = null;
 
-    constructor(id: string, registerTime: string, modificationTime: string, boardNo: string, title: string, content: string, userName: string) {
+    constructor(id: string, registerTime: string, modificationTime: string, boardNo: string, title: string, content: string, image: string, email: string, userName: string) {
         this.id = id;
         this.registerTime = registerTime;
         this.modificationTime = modificationTime;
         this.boardNo = boardNo;
         this.title = title;
         this.content = content;
+        this.image = image;
+        this.email = email;
         this.userName = userName;
     }
 
@@ -32,6 +35,8 @@ class Board {
             domain.boardNo,
             domain.title,
             domain.content,
+            domain.image,
+            domain.email,
             domain.userName,
         )
         // board.auth = Auth.member;
@@ -39,7 +44,7 @@ class Board {
     }
 
     static new(): Board {
-        return new Board( '', '', '','', '', '', '');
+        return new Board( '', '', '','', '', '', '', '', '');
     }
 
 }

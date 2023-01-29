@@ -14,8 +14,8 @@ interface Props {
 }
 
 const BoardCard = observer(({
-                                board, index
-                            }: Props) => {
+        board, index
+    }: Props) => {
 
     const latestPostLarge = index === 0;
     const latestPost = index === 1 || index === 2;
@@ -94,7 +94,7 @@ const BoardCard = observer(({
                             }}
                         />
 
-                        <StyledCover alt={board?.title}/>
+                        <StyledCover alt={board?.image} />
                     </StyledCardMedia>
 
                     <CardContent

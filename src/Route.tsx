@@ -11,7 +11,6 @@ import SignUpPage from "./page/user/SignUpPage";
 
 const Router = ({userData, setUserData}: any) => {
     userData = localStorage.getItem('userData');
-
     const logout = () => {
         localStorage.clear();
         setUserData(undefined);

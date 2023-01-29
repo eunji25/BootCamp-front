@@ -49,6 +49,10 @@ class BoardStore {
         runInAction(() => this.detailBoard = detailBoard);
         return detailBoard;
     }
+
+    async deleteBoard(id: string): Promise<void> {
+        await this.boardApi.deleteBoard(id);
+    }
 }
 
 export default BoardStore;
