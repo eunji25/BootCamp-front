@@ -8,6 +8,7 @@ import Header from "./layouts/Header";
 import NewBoardPage from "./page/board/NewBoardPage";
 import {Container} from "@mui/material";
 import SignUpPage from "./page/user/SignUpPage";
+import Footer from "./layouts/Footer";
 
 const Router = ({userData, setUserData}: any) => {
     userData = localStorage.getItem('userData');
@@ -38,6 +39,7 @@ const Router = ({userData, setUserData}: any) => {
                     </Routes>
                 </Container>
             }
+            <Footer />
         </>
     )
 }
