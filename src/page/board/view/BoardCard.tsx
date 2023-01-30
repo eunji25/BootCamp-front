@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import {Avatar, Box, Card, CardContent, Grid, Link, Typography} from "@mui/material";
+import React from "react";
+import {Card, CardContent, Grid, Typography} from "@mui/material";
 import SvgColor from "../../../layouts/style/SvgColor";
 import {alpha} from "@mui/material/styles";
 import {observer, useLocalObservable} from "mobx-react";
 import Board from "../../../model/board/Board";
 import BoardStore from "../../../store/BoardStore";
 import {useNavigate} from "react-router-dom";
-import {StyledAvatar, StyledCardMedia, StyledCover, StyledInfo, StyledTitle} from "../../../layouts/style/CardStyle";
+import {StyledAvatar, StyledCardMedia, StyledCover, StyledTitle} from "../../../layouts/style/CardStyle";
 
 interface Props {
     board: Board | null;
@@ -35,6 +35,7 @@ const BoardCard = observer(({
                             boardNo: `${board?.boardNo}`,
                             title: `${board?.title}`,
                             content: `${board?.content}`,
+                            image: `${board?.image}`,
                             userName: `${board?.userName}`,
                         }
                     });
@@ -94,7 +95,7 @@ const BoardCard = observer(({
                             }}
                         />
 
-                        <StyledCover alt={board?.image} />
+                        <StyledCover src={board?.image} />
                     </StyledCardMedia>
 
                     <CardContent
@@ -108,7 +109,6 @@ const BoardCard = observer(({
                         }}
                     >
                         <Typography gutterBottom variant="caption" sx={{color: 'text.disabled', display: 'block'}}>
-                            {/*{fDate(createdAt)}*/}
                         </Typography>
                         <StyledTitle
                             color="inherit"
@@ -125,10 +125,6 @@ const BoardCard = observer(({
                             {board!.title}
 
                         </StyledTitle>
-
-                        {/*<StyledInfo>*/}
-                        {/*</StyledInfo>*/}
-
                     </CardContent>
                 </Card>
 

@@ -65,9 +65,6 @@ const Header = observer(
                             alignItems: "center",
                         }}>
 
-                            {/*<Typography variant="h6" className={classes.title}>*/}
-                            {/*    {title}*/}
-                            {/*</Typography>*/}
                             <Box>
                                 <Button href={"/board"}> BOARD </Button>
                                 <Button href={"/notice"}> NOTICE </Button>
@@ -89,11 +86,6 @@ const Header = observer(
                             </Box>
 
                         </Toolbar>
-
-                        {/*<Toolbar style={{backgroundColor: "rosybrown"}}>*/}
-
-                        {/*</Toolbar>*/}
-
                     </AppBar>
                 </div>
             </>

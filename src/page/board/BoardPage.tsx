@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Container, Grid, Stack, Typography} from "@mui/material";
 import Iconify from "../../layouts/icon/Iconify";
 import BoardSearch from "./view/BoardSearch";
@@ -7,6 +7,7 @@ import BoardCard from "./view/BoardCard";
 import {useLocalObservable} from "mobx-react";
 import BoardStore from "../../store/BoardStore";
 import {useNavigate} from "react-router-dom";
+import Board from "../../model/board/Board";
 
 const SORT_OPTIONS = [
     {value: 'latest', label: 'Latest'},
@@ -21,16 +22,12 @@ interface Props {
 const BoardPage = () => {
     const userData = localStorage.getItem('userData');
     const boardStore = useLocalObservable(() => BoardStore.instance);
-    const {boardList} = boardStore;
+    const [boardList, setBoardList] = useState<Board[]>([]);
 
     useEffect(() => {
-        findBoardList();
+        boardStore.findBoardList()
+            .then((res) => setBoardList(res));
     },[]);
-
-    const findBoardList = () => {
-        boardStore.findBoardList().then((r) => {}
-        );
-    }
 
     const navigate = useNavigate();
 

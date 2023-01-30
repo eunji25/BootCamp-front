@@ -53,6 +53,10 @@ class BoardStore {
     async deleteBoard(id: string): Promise<void> {
         await this.boardApi.deleteBoard(id);
     }
+
+    async modifyBoard(boardCdo: BoardCdo) {
+        await this.boardApi.modifyBoard(boardCdo);
+    }
 }
 
 export default BoardStore;

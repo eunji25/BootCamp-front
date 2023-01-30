@@ -44,7 +44,7 @@ class Board {
     }
 
     static new(): Board {
-        return new Board( '', '', '','', '', '', '', '', '');
+        return new Board( '', '', '', '', '', '', '', '', '');
     }
 
 }

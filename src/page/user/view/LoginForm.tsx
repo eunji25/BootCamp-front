@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEventHandler, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Container, IconButton, InputAdornment, Link, Stack, TextField} from "@mui/material";
 import Iconify from "../../../layouts/icon/Iconify";
 import {LoadingButton} from "@mui/lab";
@@ -44,13 +44,10 @@ const LoginForm = observer(({
                     }}
                 />
 
-                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-                    <Link variant="subtitle2" underline="hover">
-                        Forgot password?
-                    </Link>
-                </Stack>
-
-                <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={onClickLogin}>
+                <LoadingButton fullWidth size="large" type="submit"
+                               variant="contained" onClick={onClickLogin}
+                               style={{backgroundColor: "saddlebrown"}}
+                >
                     Sign In
                 </LoadingButton>
             </Stack>

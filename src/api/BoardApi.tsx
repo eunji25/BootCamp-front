@@ -51,6 +51,15 @@ class BoardApi {
             })
             .catch(err => console.log(err));
     }
+
+    async modifyBoard(boardCdo: BoardCdo) {
+        await axios.post("/api/board/modify-board", {boardCdo})
+            .then((res) => {
+                console.log(res.data)
+                return res.data
+            })
+            .catch((err) => console.log(err))
+    }
 }
 
 export default BoardApi;

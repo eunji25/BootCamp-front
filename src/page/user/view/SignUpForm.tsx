@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 import React, {ChangeEvent, useState} from "react";
 import {Container, IconButton, InputAdornment, Link, Stack, TextField} from "@mui/material";
 import Iconify from "../../../layouts/icon/Iconify";
@@ -10,11 +10,6 @@ import ERole from "../../../model/user/vo/ERole";
 
 interface Props {
 
-}
-
-interface LoginInfo {
-    email: string,
-    password: string,
 }
 
 interface SignUp {
@@ -35,11 +30,17 @@ const LoginForm = observer(({}: Props) => {
     })
 
     const handleClickSignUp = async () => {
-        const newUserCdo = new UserCdo('', signUp.userName, signUp.email, ERole.USER, signUp.password);
-        await userStateKeeper.newUser(newUserCdo).then((res) => {
-            window.alert("SIGN UP SUCCESS");
-            navigate('/login');
-        });
+        if (signUp.userName && signUp.email && signUp.password) {
+            const newUserCdo = new UserCdo('', signUp.userName, signUp.email, ERole.USER, signUp.password);
+            await userStateKeeper.newUser(newUserCdo).then((res) => {
+                window.alert("SIGN UP SUCCESS");
+                navigate('/login');
+            });
+        } else {
+            window.alert("SIGN UP FAILED");
+            redirect("/signup")
+            setSignUp({userName: '', email: '', roles: '', password: ''});
+        }
     }
 
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,10 +75,10 @@ const LoginForm = observer(({}: Props) => {
                     }}
                 />
 
-                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-                </Stack>
-
-                <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClickSignUp}>
+                <LoadingButton fullWidth size="large" type="submit"
+                               variant="contained" onClick={handleClickSignUp}
+                               style={{backgroundColor: "saddlebrown"}}
+                >
                     Sign Up
                 </LoadingButton>
             </Stack>
