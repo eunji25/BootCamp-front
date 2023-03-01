@@ -8,7 +8,6 @@ import Header from "./layouts/Header";
 import NewBoardPage from "./page/board/NewBoardPage";
 import {Container} from "@mui/material";
 import SignUpPage from "./page/user/SignUpPage";
-import Footer from "./layouts/Footer";
 
 const Router = ({userData, setUserData}: any) => {
     userData = localStorage.getItem('userData');
@@ -20,7 +19,7 @@ const Router = ({userData, setUserData}: any) => {
 
     return (
         <>
-            <Header title={"Main"} userData={userData} />
+            <Header userData={userData} />
             {!userData &&
                 <div>
                     <Routes>
@@ -30,7 +29,7 @@ const Router = ({userData, setUserData}: any) => {
                 </div>
             }
             {userData &&
-                <Container>
+                <Container style={{marginBottom: '200px'}}>
                     <Routes>
                         <Route path="/board" element={<BoardPage/>}/>
                         <Route path="/detail-board" element={<DetailBoardPage/>}/>
@@ -39,9 +38,7 @@ const Router = ({userData, setUserData}: any) => {
                     </Routes>
                 </Container>
             }
-            <Footer />
         </>
     )
 }
-
 export default Router;

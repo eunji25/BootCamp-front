@@ -1,6 +1,5 @@
 import BoardApi from "../api/BoardApi";
 import {makeAutoObservable, runInAction} from "mobx";
-import BoardRdo from "../model/board/sdo/BoardRdo";
 import BoardCdo from "../model/board/sdo/BoardCdo";
 import Board from "../model/board/Board";
 
@@ -9,8 +8,6 @@ class BoardStore {
     private static _instance: BoardStore;
 
     private readonly boardApi: BoardApi;
-
-    boardRdo: BoardRdo | null | undefined;
     detailBoard: Board | null | undefined;
     boardList: Board[] = [];
 
@@ -36,12 +33,6 @@ class BoardStore {
 
     async newBoard(boardCdo: BoardCdo): Promise<Board> {
         return await this.boardApi.newBoard(boardCdo);
-    }
-
-    async findBoardByBoardNo(boardNo: string): Promise<BoardRdo> {
-        const boardRdo: BoardRdo = await this.boardApi.findBoardByBoardNo(boardNo);
-        runInAction(() => this.boardRdo = Object.assign(new BoardRdo(boardRdo.boards)));
-        return boardRdo;
     }
 
     async findDetailBoard(id: string): Promise<Board> {

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {makeStyles} from "@material-ui/core/styles";
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Button, Toolbar} from "@material-ui/core";
 import {useNavigate} from "react-router-dom";
-import {Box} from "@mui/material";
+import {Box, Tab} from "@mui/material";
+import {TabContext, TabList, TabPanel} from "@mui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,13 +23,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-    title: string,
     userData: string | null,
 }
 
 const Header = observer(
     ({
-         title,
          userData,
      }: Props) => {
 
@@ -39,10 +38,8 @@ const Header = observer(
         const navigate = useNavigate();
 
         const [navSize, setnavSize] = useState("10rem");
-        const [navColor, setnavColor] = useState("transparent");
         const listenScrollEvent = () => {
-            window.scrollY > 10 ? setnavColor("#252734") : setnavColor("transparent");
-            window.scrollY > 10 ? setnavSize("2rem") : setnavSize("10rem");
+            window.scrollY > 10 ? setnavSize("5rem") : setnavSize("9rem");
         };
         useEffect(() => {
             window.addEventListener("scroll", listenScrollEvent);
@@ -51,37 +48,58 @@ const Header = observer(
             };
         }, []);
 
+        const [value, setValue] = React.useState('board');
+
+        const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+            setValue(newValue);
+            navigate(`/${newValue}`)
+        };
+
         return (
             <>
                 <div className={classes.root}
-                     style={{marginBottom: '40px'}}>
+                     style={{marginBottom: '30px'}}>
                     <AppBar position="static">
                         <Toolbar style={{
                             backgroundColor: "rosybrown",
                             height: navSize,
+                            paddingTop: "10px",
                             transition: "all 1s",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
 
-                            <Box>
-                                <Button href={"/board"}> BOARD </Button>
-                                <Button href={"/notice"}> NOTICE </Button>
+                            <Box sx={{ width: '40%', typography: 'body1'}}>
+                                <TabContext value={value}>
+                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                        <TabList onChange={handleChange}
+                                                 aria-label="lab API tabs example"
+                                                 TabIndicatorProps={{
+                                                    sx: {backgroundColor: "white"}
+                                                 }}
+                                        >
+                                            <Tab label="BOARD" value="board" style={{color: "white"}} />
+                                            <Tab label="NOTICE" value="notice" style={{color: "white"}} />
+                                        </TabList>
+                                    </Box>
+                                    <TabPanel value="board" ></TabPanel>
+                                    <TabPanel value="notice"></TabPanel>
+                                </TabContext>
                             </Box>
-                            <Box m={1}
-                                 display="flex"
-                                 justifyContent="flex-start"
-                                 alignItems="flex-start">
+
+                            <Box m={1} justifyContent="end" >
                                 {typeof userData != 'undefined' && userData != null ?
-                                    <Button onClick={async () => {
+                                    <Button
+                                        onClick={async () => {
                                         localStorage.clear();
                                         window.location.href = "/login"
-                                    }} variant="contained" size="medium" color="default">로그아웃</Button>
-
-                                    :
-                                    <Button variant="contained" size="medium" color="default"
-                                            onClick={() => navigate("/login")}>로그인</Button>
+                                    }}
+                                        variant="outlined" size="medium" style={{color: "white", borderColor: "white"}}
+                                    >로그아웃</Button>
+                                    : <Button onClick={() => navigate("/login")}
+                                              variant="outlined" size="medium" style={{color: "white", borderColor: "white"}}
+                                    >로그인</Button>
                                 }
                             </Box>
 

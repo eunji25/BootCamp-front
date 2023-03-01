@@ -15,10 +15,6 @@ const SORT_OPTIONS = [
     {value: 'oldest', label: 'Oldest'},
 ];
 
-interface Props {
-    userId: string
-}
-
 const BoardPage = () => {
     const userData = localStorage.getItem('userData');
     const boardStore = useLocalObservable(() => BoardStore.instance);
@@ -31,7 +27,7 @@ const BoardPage = () => {
 
     const navigate = useNavigate();
 
-    const handleClickNewBoard = () => {
+    const handleClickNew = () => {
         navigate("/new-board");
     }
 
@@ -43,7 +39,7 @@ const BoardPage = () => {
                     </Typography>
                     <Button variant="contained" style={{backgroundColor: "saddlebrown"}}
                             startIcon={<Iconify icon="eva:plus-fill"/>}
-                            onClick={handleClickNewBoard}
+                            onClick={handleClickNew}
                     >
                         New Post
                     </Button>

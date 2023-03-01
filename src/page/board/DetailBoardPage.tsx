@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import {observer, useLocalObservable} from "mobx-react";
 import {TextField} from "@material-ui/core";
 import Box from "@mui/material/Box";
-import {redirect, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Button, Container, Stack} from "@mui/material";
 import BoardStore from "../../store/BoardStore";
 import BoardCdo from "../../model/board/sdo/BoardCdo";
@@ -19,6 +19,8 @@ interface InputValue {
 const DetailBoardPage = observer(
     ({}: Props) => {
 
+        // @ts-ignore
+        const userData = JSON.parse(localStorage.getItem('userData'));
         const location = useLocation();
         const navigate = useNavigate();
 
@@ -35,8 +37,11 @@ const DetailBoardPage = observer(
             if (!editable) {
                 setEditable(true);
             } else {
-                const boardCdo = new BoardCdo(detailBoard.id, detailBoard.registerTime, new Date().toLocaleString(),
-                    detailBoard.boardNo, inputValue.title, inputValue.content, detailBoard.email, image, detailBoard.userName);
+                const boardCdo = new BoardCdo(detailBoard.id,
+                    detailBoard.registerTime, new Date().toLocaleString(),
+                    detailBoard.boardNo, inputValue.title, inputValue.content,
+                    detailBoard.email, image ? image : detailBoard.image,
+                    detailBoard.userName);
                 await boardStore.modifyBoard(boardCdo)
                     .then(() => {
                         window.alert("MODIFIED");
@@ -74,11 +79,14 @@ const DetailBoardPage = observer(
                 .then(() => navigate("/board"));
         }
 
+        console.log(editable)
+
         return (
             <>
                 <Container>
                     <Stack>
-                        <img style={{width: '90vh', height: '50vh'}} src={image ? image : detailBoard.image} hidden={(editable && !image && !detailBoard.image) || (!editable && !detailBoard.image)}/>
+                        <img style={{width: '90vh', height: '50vh'}} src={image ? image : detailBoard.image}
+                             hidden={(editable && !image && !detailBoard.image) || (!editable && !detailBoard.image)}/>
                         <br/>
                         <input id="raised-button-file" type="file"
                                onChange={handleImageUpload} hidden={!editable}/>
@@ -112,14 +120,25 @@ const DetailBoardPage = observer(
                             <br/>
                         </Box>
                     </Stack>
-                    <Stack direction="row-reverse" mb={5}>
-                        <Button variant="contained" style={{backgroundColor: "saddlebrown"}}
-                                id={detailBoard.id}
-                        onClick={handleClickDelete}>삭제</Button>
-                        <Button variant="contained" style={{backgroundColor: "saddlebrown"}}
-                                id={detailBoard.id}
-                        onClick={handleClickModify}>{editable ? "저장" : "수정"}</Button>
+                    {!editable &&
+                    <Stack direction="row" mb={5} style={{marginBottom: '0px'}}>
+                        <Button variant="outlined" style={{color: "saddlebrown"}}
+                        onClick={() => navigate("/board")}>목록</Button>
                     </Stack>
+                    }
+                    {/* 수정 권한 */}
+                    {(userData.email == detailBoard.email) &&
+                        <Stack direction="row-reverse" mb={5}>
+
+                            <Button variant="outlined" style={{color: "saddlebrown"}}
+                                    id={detailBoard.id}
+                                    onClick={handleClickDelete}
+                            >삭제</Button>
+                            <Button variant="outlined" style={{color: "saddlebrown"}}
+                                    id={detailBoard.id}
+                                    onClick={handleClickModify}>{editable ? "저장" : "수정"}</Button>
+                        </Stack>
+                    }
                 </Container>
             </>
         )

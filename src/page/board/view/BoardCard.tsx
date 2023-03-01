@@ -37,6 +37,7 @@ const BoardCard = observer(({
                             content: `${board?.content}`,
                             image: `${board?.image}`,
                             userName: `${board?.userName}`,
+                            email: `${board?.email}`,
                         }
                     });
                 }

@@ -28,14 +28,6 @@ class BoardApi {
             .catch((err) => console.log(err))
     }
 
-    async findBoardByBoardNo(boardNo: string) {
-        return await axios.post('/api/board/find-board', {boardNo: boardNo})
-            .then(res => {
-                return res.data
-            })
-            .catch(err => console.log(err));
-    }
-
     async findDetailBoard(id: string) {
         return await axios.post('/api/board/find-detail-board', {id: id})
             .then(res => {
@@ -55,7 +47,6 @@ class BoardApi {
     async modifyBoard(boardCdo: BoardCdo) {
         await axios.post("/api/board/modify-board", {boardCdo})
             .then((res) => {
-                console.log(res.data)
                 return res.data
             })
             .catch((err) => console.log(err))

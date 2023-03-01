@@ -24,7 +24,7 @@ const NewBoardPage = observer(
 
         // @ts-ignore
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const boardStateKeeper = useLocalObservable(() => BoardStore.instance);
+        const boardStore = useLocalObservable(() => BoardStore.instance);
         const [editable, setEditable] = useState<boolean>(false);
         const [inputValue, setInputValue] = useState<InputValue>({
             userName: '', title: '', content: '', registerTime: new Date().toLocaleString()
@@ -57,13 +57,13 @@ const NewBoardPage = observer(
         const handleClickSaveNewBoard = async () => {
             setEditable(false);
             const boardCdo = new BoardCdo('', inputValue.registerTime, '',
-                '', inputValue.title, inputValue.content,
+                1, inputValue.title, inputValue.content,
                 userData.email, image, userData.userName
             )
-            await boardStateKeeper.newBoard(boardCdo)
+            await boardStore.newBoard(boardCdo)
                 .then(() => {
                     navigate("/board");
-                    boardStateKeeper.findBoardList();
+                    boardStore.findBoardList();
                 });
         }
 
